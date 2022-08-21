@@ -3,7 +3,6 @@ import { BiDotsHorizontalRounded } from "react-icons/bi"
 import { Link } from 'react-router-dom';
 
 import PopupHome from "../../../popup/PopupHome";
-import PopupUnfollow from "../../../popup/PopupUnfollow";
 
 import { useState } from 'react'
 

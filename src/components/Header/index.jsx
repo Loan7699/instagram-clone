@@ -24,7 +24,7 @@ function Header() {
 
     return (
         //  fixed top-0 right-0 left-0: chưa cố định đc header
-        <div className='bg-white h-16 shadow-[0_0px_1px_1px_rgba(0,0,0,0.12)] fixed top-0 left-0 right-0 z-50 overflow-hidden'>
+        <div className='bg-white h-16 shadow-[0_0px_1px_1px_rgba(0,0,0,0.12)] fixed top-0 left-0 right-0 z-50'>
             <div className="py-2.5 px-5 flex justify-between mx-auto items-center align-center width">
                 <img src='/images/Instagram_logo.svg.png' className='w-28' />
 
@@ -92,7 +92,6 @@ function Header() {
 
             </div>
 
-{console.log(isCreate)}
             {isCreate && <CreateNewPost
                 handeCloseCreate={handleCreatePost}
             />}
