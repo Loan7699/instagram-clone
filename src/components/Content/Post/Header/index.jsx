@@ -19,7 +19,7 @@ function Header({ accountName, id }) {
         
         <div className="flex items-center justify-between py-3.5 px-4">
             <div className="">
-                <Link to="/detail" className="flex items-center" onClick={id}>
+                <Link to={`/detail/${id}`} className="flex items-center" onClick={id}>
                     <img src={`homepage/${id}.jpg`} alt="avatar" className="rounded-full h-8 w-8 flex cursor-pointer" />
                     <p className="font-semibold text-sm ml-3 cursor-pointer">{accountName}</p>
                 </Link>
@@ -29,11 +29,13 @@ function Header({ accountName, id }) {
                 <BiDotsHorizontalRounded className="w-6 h-6 cursor-pointer" />
             </button>
 
-            {isOpen && <PopupHome
-                handleClose={togglePopup}
-                id={id}
-            />}
-        </div>
+            {
+        isOpen && <PopupHome
+            handleClose={togglePopup}
+            id={id}
+        />
+    }
+        </div >
     )
 }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 User.propTypes = {
@@ -9,12 +10,14 @@ function User(props) {
     return (
         <div className='flex justify-between mb-2.5 mt-12 items-center text-sm'>
             <div className='flex items-center'>
-                <div>
-                    <img src='https://i.pinimg.com/originals/a0/1d/55/a01d5552778440f9333bbffe57475ce5.jpg' alt='avatar' className='h-[56px] w-[56px] rounded-full mr-4 cursor-pointer' />
-                </div>
+                <Link to="/about">
+                    <img src='/homepage/avatar.jpg' alt='avatar' className='h-[56px] w-[56px] rounded-full mr-4 cursor-pointer' />
+                </Link>
 
                 <div className=''>
-                    <p className='font-semibold cursor-pointer'>phuongloan</p>
+                    <Link to="/about">
+                        <p className='font-semibold cursor-pointer'>phuongloan</p>
+                    </Link>
                     <p className='text-[#8E8E8E] ml-0.5'>Phương Loan</p>
                 </div>
             </div>

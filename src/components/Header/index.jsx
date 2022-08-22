@@ -83,7 +83,7 @@ function Header() {
                                 )}
                             >
                                 <div>
-                                    <img src='homepage/avatar.jpg' alt='Chanyeol' className='w-6 h-6 rounded-full ml-[22px] border border-slate-300 hover:border-slate-900'></img>
+                                    <img src='/homepage/avatar.jpg' alt='Chanyeol' className='w-6 h-6 rounded-full ml-[22px] border border-slate-300 hover:border-slate-900'></img>
                                 </div>
                             </Tippy>
                         

@@ -22,7 +22,7 @@ function Search() {
         <Tippy className="hidden"
                     interactive // seclect kết quả
                     // kết quả tìm kiếm > 0
-                    visible={searchResult.length > 0}
+                    // visible={searchResult.length > 0}
 
                     render={(attrs) => (
                         <div className='w-[350px]' tabIndex="-1" {...attrs}>

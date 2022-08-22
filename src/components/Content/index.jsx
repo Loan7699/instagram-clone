@@ -9,7 +9,7 @@ function Content() {
     const [profiles, setProfiles] = useState([])
     useEffect(() => {
         getApi.getDetailProfile().then(res => {
-            console.log("res", res.data);
+            // console.log("res", res.data);
             setProfiles(res.data)
         })
     }, [])

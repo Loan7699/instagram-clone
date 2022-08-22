@@ -71,3 +71,7 @@
 .min-height {
   min-height: 48px;
 }
+
+.max-img {
+  max-width: 280px;
+}

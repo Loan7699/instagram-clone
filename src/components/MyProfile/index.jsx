@@ -114,6 +114,7 @@ function MyProfile() {
                         {/*  flex-grow cho phép các phần tử giãn theo độ rộng của container. */}
                         <a href='' className='cursor-pointer'>
                             <div className='mr-[3px] md:mr-7 overflow-hidden'>
+                                {/* width, height: 33vw */}
                                 <img src='/my_profile/post1.jpg' className='object-cover w-full h-full' />
                             </div>
                         </a>
