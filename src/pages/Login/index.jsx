@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState,  useContext } from 'react'
 import ProTypes from 'prop-types'
 
 import { ImFacebook2 } from 'react-icons/im'
@@ -6,37 +6,62 @@ import { ImFacebook2 } from 'react-icons/im'
 import Footer from "../../components/Footer"
 import getApi from "../../api/getApi"
 
-LoginLogout.ProTypes = {
+import axios from 'axios'
+import { useNavigate } from 'react-router'
+import AppContext from "../../components/AppContext"
+
+Login.ProTypes = {
 
 };
 
-function LoginLogout(props) {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [user, setUser] = useState({})
-    const [users, setUsers] = useState([])
+function Login(props) {
+    const { dispatch } = useContext(AppContext)
+    // lấy đc hàm dispatch trong AppContext mỗi khi lấy đc thông tin user
+    const [userInput, setUserInput] = useState({ email: "", password: "" })
+    // lấy thông tin người dùng nhập
+    const [errorMess, setErrorMess] = useState(null)
+    // gửi lại lỗi khi gửi request
+    const navigate = useNavigate ()
+    // điều hướng
 
-    useEffect(() => {
-        getApi.getUserLogin().then(res => {
-          console.log("res", res.data);
-          setUsers(res.data)
-        })
-      }, [])
-
-    const handleLogin = () => {
-        setUser({
-            email,
-            password: Number(password)
-        })
+    // xử lý onChangeHandle: cập nhật thông tin người dùng
+    const handleChange = (e) => {
+        setUserInput({...userInput, [e.target.name] : e.target.value })
     }
 
-    const handleCheckUser = () => {
-        const isCheck = users.includes(user)
-        return isCheck
+    // hàm submit khi nhấn login
+    const handleLogin = async (e) => {
+        try {
+            e.preventDefault () // khi người dùng ấn login ko bị reload lại trang
+            const option = {
+                method: 'get',
+                url: 'https://40d7f4a1-8e6e-4e4a-9711-2d6f92be7e6b.mock.pstmn.io/userslogin/list',
+                data: userInput,
+            }
+            console.log(userInput);
+            const response = await axios(option)
+            console.log(response.data);
+            const res = response.data
+            // console.log(response);
+            // const { token, userName } = response.data.data
+            // console.log(token, userName);
+            // localStorage.setItem("token", token);
+            // dispatch({ type: "CURRENT_USER", payload: { userName } })
+            console.log(res.includes(userInput));
+            if (res.includes(userInput)) {
+                navigate.push("/")
+            }
+            
+        }
+
+        catch (error) {
+            // setErrorMess(error.response.data.message)
+            console.log("Error");
+        }
     }
 
     return (
-        <div>
+      
             <section className=' bg-[#FAFAFA]'>
                 <div className='flex justify-center py-8'>
                     <div className="bg-[url('../public/images/background.png')] bg-no-repeat background-login hidden md:block mr-8 w-96">
@@ -54,16 +79,20 @@ function LoginLogout(props) {
                             </div>
 
                             <div className='mb-2.5'>
-                                <form>
+                                <form onSubmit={handleLogin}>
                                     <div className='mt-6'>
+                                        {errorMess &&
+                                            <div className='text-[red]'>Error: {errorMess}</div>
+                                        }
                                         <div className='mb-1.5 mx-10 text-xs'>
                                             <div className='h-9 py-2 border border-solid border-[#DBDBDB] rounded-[3px] bg-[#FAFAFA]'>
                                                 <input
-                                                    type='text'
+                                                    type='email'
+                                                    name="email"
                                                     placeholder='Phone number, username or email'
                                                     className='pl-2 w-64 bg-[#FAFAFA] outline-none'
-                                                    value={email}
-                                                    onChange={e => setEmail(e.target.value)}
+                                                    value={userInput.email}
+                                                    onChange={handleChange}
                                                 />
                                             </div>
                                         </div>
@@ -71,17 +100,18 @@ function LoginLogout(props) {
                                             <div className='h-9 py-2 border border-solid border-[#DBDBDB] rounded-[3px] bg-[#FAFAFA]'>
                                                 <input
                                                     type='password'
+                                                    name="password"
                                                     placeholder='Password'
                                                     className='pl-2 w-64 bg-[#FAFAFA] outline-none'
-                                                    value={password}
-                                                    onChange={e => setPassword(e.target.value)}
+                                                    value={userInput.password}
+                                                    onChange={handleChange}
                                                 />
                                             </div>
                                         </div>
                                         <div className='my-2 mx-10 text-sm'>
                                             <button
                                                 className='py-1 bg-[#0092f94d] w-72 border border-solid border-transparent rounded text-[#FFFFFF] font-semibold cursor-pointer'
-                                                onClick={handleLogin}
+                                        
                                             >
                                                 Log In
                                             </button>
@@ -131,9 +161,9 @@ function LoginLogout(props) {
 
                 <Footer />
             </section>
-            {/* {checkUser && <HomePage />} */}
-        </div>
+        
+        
     )
 }
 
-export default LoginLogout;
+export default Login;

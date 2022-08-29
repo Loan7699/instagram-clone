@@ -1,47 +1,38 @@
 import { Routes, Route } from 'react-router-dom';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 
 import HomePage from './pages/HomePage';
 import AboutMe from './pages/AboutMe';
 import ChatPage from './pages/ChatPage';
 import Explore from './pages/Explore';
-import LoginLogout from './pages/LoginLogout';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import './App.css';
 import DetailUser from './pages/DetailUser';
+import AppReducer from './reducer/AppReducer.js'
+import AppContext from './components/AppContext';
 
 import getApi from './api/getApi';
 
 function App() {
-  const [users, setUsers] = useState([])
-
-  useEffect(() => {
-    getApi.getUserLogin().then(res => {
-      console.log("res", res.data);
-      setUsers(res.data)
-    })
-  }, [])
-
-  const [checkId, setCheckId] = useState(false)
-
-  const handleLogin = () => {
-
-  }
+  const initialState = { user: null, posts: [] }
+  const [state, dispatch] = useReducer(AppReducer, initialState)
 
   return (
     <div className="App">
-      {checkId ?
-        <Routes>
+      <AppContext.Provider value={{state, dispatch}}>
+      <Routes>
+        
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutMe />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/detail/:id" element={<DetailUser />} />
-        </Routes>
-        :
-        <Routes>
-          <Route path="/" element={<LoginLogout />} />
-        </Routes>
-      }
+          <Route path="/login" element={<Login />} />
+          <Route path="register/" element={<Register />} />
+        
+      </Routes>
+      </AppContext.Provider>
     </div>
   );
 }
